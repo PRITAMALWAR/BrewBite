@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="BrewBite Café – Fresh teas, coffees, sandwiches, patties & snacks. Fast service, hygienic food, affordable prices in Jaipur, Rajasthan.">
+<meta name="keywords" content="café, fast food, tea, coffee, sandwiches, patties, snacks, Jaipur, BrewBite">
+<title>BrewBite Café – Fresh Taste, Fast Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+  :root {
+    --brown-deep: #2C1810;
+    --brown-mid: #5C3317;
+    --brown-warm: #8B4513;
+    --orange-main: #E8700A;
+    --orange-light: #F59A2D;
+    --cream-dark: #F5E6C8;
+    --cream-light: #FDF6EC;
+    --cream-white: #FFFDF8;
+    --text-dark: #1A0F08;
+    --text-mid: #4A2E1A;
+    --text-light: #8B6347;
+    --shadow-warm: 0 8px 32px rgba(44,24,16,0.15);
+    --shadow-card: 0 4px 20px rgba(139,69,19,0.12);
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--orange-main); border-radius: 3px; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    background: rgba(253,246,236,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(232,112,10,0.12);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: var(--shadow-warm); }
+
+  .nav-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8rem;
+    color: var(--brown-warm);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo span { color: var(--orange-main); }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--orange-main);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: white;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.92rem; font-weight: 500;
+    color: var(--text-mid);
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--orange-main);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--orange-main); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: var(--orange-main);
+    color: white !important;
+    padding: 9px 22px;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: background 0.3s, transform 0.2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--brown-warm) !important; transform: translateY(-1px); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 6px;
+  }
+  .hamburger span {
+    width: 26px; height: 2px;
+    background: var(--brown-warm);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ─── MOBILE MENU ─── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 72px; left: 0; right: 0;
+    background: var(--cream-white);
+    border-bottom: 2px solid var(--cream-dark);
+    padding: 20px 5%;
+    z-index: 999;
+    box-shadow: var(--shadow-warm);
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .mobile-menu a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    display: block;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-mid) 40%, var(--brown-warm) 100%);
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+    padding: 100px 5% 60px;
+  }
+
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    opacity: 0.07;
+    background-image:
+      radial-gradient(circle at 20% 20%, var(--orange-light) 2px, transparent 2px),
+      radial-gradient(circle at 80% 80%, var(--orange-light) 2px, transparent 2px),
+      radial-gradient(circle at 50% 50%, var(--orange-light) 1px, transparent 1px);
+    background-size: 60px 60px, 80px 80px, 40px 40px;
+  }
+
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.25;
+  }
+  .hero-blob-1 {
+    width: 400px; height: 400px;
+    background: var(--orange-main);
+    top: -100px; right: -100px;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .hero-blob-2 {
+    width: 300px; height: 300px;
+    background: var(--orange-light);
+    bottom: -80px; left: 10%;
+    animation: blobFloat 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes blobFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,-20px) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+
+  .hero-text { animation: fadeSlideUp 0.9s ease both; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,112,10,0.2);
+    border: 1px solid rgba(232,112,10,0.4);
+    color: var(--orange-light);
+    padding: 6px 16px; border-radius: 50px;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-badge i { font-size: 0.75rem; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    color: var(--cream-white);
+    line-height: 1.08;
+    margin-bottom: 16px;
+  }
+  .hero-title .accent { color: var(--orange-light); font-style: italic; }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    color: rgba(253,246,236,0.75);
+    margin-bottom: 36px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--orange-main);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.3s;
+    box-shadow: 0 6px 24px rgba(232,112,10,0.4);
+  }
+  .btn-primary:hover {
+    background: var(--orange-light);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(232,112,10,0.5);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--cream-white);
+    padding: 13px 32px;
+    border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.35);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: var(--orange-light);
+    color: var(--orange-light);
+    transform: translateY(-3px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--orange-light);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: rgba(253,246,236,0.6);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeSlideUp 0.9s 0.2s ease both;
+  }
+
+  .hero-food-circle {
+    width: min(420px, 90vw); height: min(420px, 90vw);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, rgba(245,154,45,0.25), transparent 60%),
+                linear-gradient(135deg, rgba(232,112,10,0.15), rgba(255,255,255,0.05));
+    border: 1px solid rgba(232,112,10,0.2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: spinSlow 20s linear infinite;
+  }
+
+  .hero-food-circle::before {
+    content: '';
+    position: absolute; inset: 15px;
+    border-radius: 50%;
+    border: 1px dashed rgba(232,112,10,0.25);
+    animation: spinSlow 15s linear infinite reverse;
+  }
+
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+
+  .food-emoji-main {
+    font-size: clamp(5rem, 10vw, 8rem);
+    animation: spinSlow 20s linear infinite reverse;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+    z-index: 2;
+  }
+
+  .orbit-item {
+    position: absolute;
+    width: 64px; height: 64px;
+    background: rgba(44,24,16,0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(232,112,10,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    animation: spinSlow 20s linear infinite reverse;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .orbit-item:nth-child(2) { top: 5%; left: 50%; transform: translateX(-50%); }
+  .orbit-item:nth-child(3) { top: 50%; right: 2%; transform: translateY(-50%); }
+  .orbit-item:nth-child(4) { bottom: 5%; left: 50%; transform: translateX(-50%); }
+  .orbit-item:nth-child(5) { top: 50%; left: 2%; transform: translateY(-50%); }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 90px 5%; }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,112,10,0.1);
+    color: var(--orange-main);
+    padding: 5px 14px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--brown-deep);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-heading em { color: var(--orange-main); font-style: italic; }
+
+  .section-sub {
+    color: var(--text-light);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  .centered { text-align: center; }
+  .centered .section-sub { margin: 0 auto; }
+
+  /* ─── FEATURES STRIP ─── */
+  #features-strip {
+    background: var(--brown-deep);
+    padding: 40px 5%;
+  }
+  .features-strip-inner {
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 48px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .feature-pill {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--cream-white);
+  }
+  .feature-pill-icon {
+    width: 44px; height: 44px;
+    background: rgba(232,112,10,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--orange-light);
+    flex-shrink: 0;
+  }
+  .feature-pill-text { font-size: 0.92rem; font-weight: 500; }
+  .feature-pill-subtext { font-size: 0.78rem; color: rgba(253,246,236,0.55); }
+
+  /* ─── MENU ─── */
+  #menu { background: var(--cream-light); }
+
+  .menu-tabs {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin: 36px 0 40px;
+    justify-content: center;
+  }
+  .tab-btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    border: 2px solid var(--cream-dark);
+    background: white;
+    color: var(--text-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover, .tab-btn.active {
+    background: var(--orange-main);
+    border-color: var(--orange-main);
+    color: white;
+    box-shadow: 0 4px 16px rgba(232,112,10,0.3);
+    transform: translateY(-2px);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .menu-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s, transform 0.4s, box-shadow 0.3s;
+  }
+  .menu-card.visible {
+    opacity: 1; transform: translateY(0);
+  }
+  .menu-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(139,69,19,0.18);
+  }
+
+  .menu-card-img {
+    width: 100%; height: 185px;
+    object-fit: cover;
+    display: block;
+    background: var(--cream-dark);
+    font-size: 5rem;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .menu-card-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(44,24,16,0.3), transparent);
+  }
+  .menu-emoji-bg {
+    width: 100%; height: 185px;
+    background: linear-gradient(135deg, var(--cream-dark), var(--cream-white));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4.5rem;
+    position: relative;
+    transition: transform 0.4s;
+  }
+  .menu-card:hover .menu-emoji-bg { transform: scale(1.08); }
+
+  .menu-card-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--orange-main);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.72rem; font-weight: 700;
+    z-index: 2;
+  }
+
+  .menu-card-body { padding: 18px; }
+  .menu-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--brown-deep);
+    margin-bottom: 6px;
+  }
+  .menu-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .menu-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .menu-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--orange-main);
+  }
+  .menu-price span { font-size: 0.8rem; color: var(--text-light); font-family: 'DM Sans', sans-serif; }
+  .add-btn {
+    width: 36px; height: 36px;
+    background: var(--orange-main);
+    color: white;
+    border: none; border-radius: 50%;
+    font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    box-shadow: 0 3px 10px rgba(232,112,10,0.35);
+  }
+  .add-btn:hover { background: var(--brown-warm); transform: scale(1.15) rotate(90deg); }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--cream-white);
+  }
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .about-visual { position: relative; }
+  .about-main-img {
+    width: 100%; border-radius: var(--radius-xl);
+    font-size: 8rem;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, #eed9b4 100%);
+    height: 420px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-warm);
+    position: relative;
+    overflow: hidden;
+  }
+  .about-main-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(232,112,10,0.12), transparent);
+  }
+  .about-float-card {
+    position: absolute; bottom: -24px; right: -24px;
+    background: white;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-warm);
+    border: 1px solid var(--cream-dark);
+    min-width: 160px;
+  }
+  .about-float-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--orange-main);
+  }
+  .about-float-text {
+    font-size: 0.82rem; color: var(--text-light);
+    font-weight: 500;
+  }
+
+  .about-year-badge {
+    position: absolute; top: -20px; left: -20px;
+    width: 80px; height: 80px;
+    background: var(--orange-main);
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: white;
+    box-shadow: 0 6px 24px rgba(232,112,10,0.45);
+  }
+  .about-year-badge .year { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+  .about-year-badge .est { font-size: 0.65rem; letter-spacing: 0.1em; }
+
+  .about-text .section-sub { max-width: 100%; margin-bottom: 28px; }
+
+  .about-highlights {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 28px;
+  }
+  .highlight-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 16px;
+    background: var(--cream-light);
+    border-radius: 14px;
+    border: 1px solid var(--cream-dark);
+  }
+  .highlight-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(232,112,10,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--orange-main);
+  }
+  .highlight-title { font-size: 0.88rem; font-weight: 600; color: var(--brown-deep); }
+  .highlight-desc { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+
+  /* ─── FEATURES ─── */
+  #features {
+    background: linear-gradient(135deg, var(--brown-deep), var(--brown-mid));
+    position: relative; overflow: hidden;
+  }
+  #features::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 10% 50%, rgba(232,112,10,0.08), transparent 50%),
+                      radial-gradient(circle at 90% 50%, rgba(245,154,45,0.06), transparent 50%);
+  }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px; max-width: 1100px; margin: 48px auto 0;
+    position: relative; z-index: 1;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(232,112,10,0.2);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: all 0.35s;
+    opacity: 0; transform: translateY(20px);
+  }
+  .feature-card.visible { opacity: 1; transform: translateY(0); }
+  .feature-card:hover {
+    background: rgba(232,112,10,0.12);
+    border-color: rgba(232,112,10,0.45);
+    transform: translateY(-8px);
+  }
+  .feature-card-icon {
+    width: 72px; height: 72px;
+    background: rgba(232,112,10,0.15);
+    border-radius: 20px;
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.9rem; color: var(--orange-light);
+    transition: all 0.3s;
+  }
+  .feature-card:hover .feature-card-icon {
+    background: var(--orange-main);
+    box-shadow: 0 8px 24px rgba(232,112,10,0.4);
+  }
+  .feature-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--cream-white);
+    margin-bottom: 12px;
+  }
+  .feature-card-desc { font-size: 0.88rem; color: rgba(253,246,236,0.6); line-height: 1.65; }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--cream-light); }
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 24px; max-width: 1100px; margin: 48px auto 0;
+  }
+  .testi-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--cream-dark);
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0; transform: translateY(20px);
+  }
+  .testi-card.visible { opacity: 1; transform: translateY(0); }
+  .testi-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-warm); }
+  .testi-quote {
+    font-size: 3.5rem; line-height: 1;
+    color: var(--orange-main); opacity: 0.2;
+    position: absolute; top: 20px; right: 24px;
+    font-family: Georgia, serif;
+  }
+  .testi-stars { color: #F59A2D; font-size: 0.9rem; margin-bottom: 14px; }
+  .testi-text {
+    font-size: 0.92rem; color: var(--text-mid);
+    line-height: 1.7; margin-bottom: 20px; font-style: italic;
+  }
+  .testi-author { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange-main), var(--brown-warm));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; color: white; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; font-size: 0.92rem; color: var(--brown-deep); }
+  .testi-location { font-size: 0.78rem; color: var(--text-light); }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--cream-white); }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 60px; max-width: 1100px; margin: 48px auto 0;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--brown-deep);
+    margin-bottom: 24px;
+  }
+  .contact-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .contact-item-icon {
+    width: 46px; height: 46px; flex-shrink: 0;
+    background: rgba(232,112,10,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--orange-main);
+  }
+  .contact-item-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 4px; }
+  .contact-item-val { font-size: 0.95rem; color: var(--text-dark); font-weight: 500; }
+
+  .contact-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .btn-call {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--brown-warm);
+    color: white; padding: 12px 24px;
+    border-radius: 50px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(139,69,19,0.3);
+  }
+  .btn-call:hover { background: var(--brown-mid); transform: translateY(-2px); }
+  .btn-wa {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: #25D366;
+    color: white; padding: 12px 24px;
+    border-radius: 50px; text-decoration: none;
+    font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+  }
+  .btn-wa:hover { background: #1aab54; transform: translateY(-2px); }
+
+  .map-container {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-warm);
+    border: 3px solid var(--cream-dark);
+  }
+  .map-container iframe { display: block; width: 100%; height: 380px; border: none; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--brown-deep);
+    color: rgba(253,246,236,0.75);
+    padding: 64px 5% 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 48px; max-width: 1200px; margin: 0 auto;
+  }
+  .footer-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem; color: white; display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px; text-decoration: none;
+  }
+  .footer-logo span { color: var(--orange-light); }
+  .footer-desc { font-size: 0.88rem; line-height: 1.65; margin-bottom: 24px; }
+  .social-links { display: flex; gap: 12px; }
+  .social-link {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(253,246,236,0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .social-link:hover { background: var(--orange-main); border-color: var(--orange-main); color: white; transform: translateY(-3px); }
+
+  .footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: white;
+    margin-bottom: 18px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a {
+    color: rgba(253,246,236,0.65);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .footer-col ul li a:hover { color: var(--orange-light); }
+  .footer-col ul li a i { font-size: 0.75rem; color: var(--orange-main); }
+
+  .hours-item {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .hours-item:last-child { border-bottom: none; }
+  .hours-day { color: rgba(253,246,236,0.6); }
+  .hours-time { color: var(--orange-light); font-weight: 600; }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 40px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-size: 0.82rem;
+  }
+  .footer-bottom a { color: var(--orange-light); text-decoration: none; }
+
+  /* ─── FLOATING BUTTONS ─── */
+  .float-btns {
+    position: fixed; bottom: 28px; right: 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    z-index: 999;
+  }
+  .float-btn {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 1.35rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    color: white;
+  }
+  .float-btn:hover { transform: translateY(-4px) scale(1.1); }
+  .float-wa { background: #25D366; }
+  .float-call { background: var(--orange-main); }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--brown-deep);
+    color: var(--cream-white);
+    padding: 12px 24px; border-radius: 50px;
+    font-size: 0.88rem; font-weight: 500;
+    opacity: 0; pointer-events: none;
+    transition: all 0.4s;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { display: none; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .hero-stats { gap: 20px; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 60px 4%; }
+    .menu-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    .features-strip-inner { gap: 28px; }
+    .about-highlights { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .testi-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 420px) {
+    .menu-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="logo-icon"><i class="fas fa-mug-hot"></i></div>
+    Brew<span>Bite</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#features">Why Us</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:+919876543210" class="nav-cta"><i class="fas fa-phone-alt"></i> Call Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#menu" onclick="closeMobile()">Menu</a></li>
+    <li><a href="#about" onclick="closeMobile()">About Us</a></li>
+    <li><a href="#features" onclick="closeMobile()">Why Us</a></li>
+    <li><a href="#testimonials" onclick="closeMobile()">Reviews</a></li>
+    <li><a href="#contact" onclick="closeMobile()">Contact</a></li>
+    <li><a href="tel:+919876543210" style="color:var(--orange-main)"><i class="fas fa-phone-alt"></i> +91 98765 43210</a></li>
+  </ul>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><i class="fas fa-star"></i> Jaipur's Favourite Café</div>
+      <h1 class="hero-title">
+        Where Every <span class="accent">Sip &amp; Bite</span> Feels Like Home
+      </h1>
+      <p class="hero-tagline">Fresh Taste, Fast Service — crafted teas, bold coffees, crispy snacks &amp; hearty bites. Ready in minutes, loved every time.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary"><i class="fas fa-utensils"></i> View Full Menu</a>
+        <a href="https://wa.me/919876543210?text=Hi%2C+I%27d+like+to+order+from+BrewBite!" class="btn-outline" target="_blank"><i class="fab fa-whatsapp"></i> Order on WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">5K+</span><span class="stat-label">Happy Customers</span></div>
+        <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Menu Items</span></div>
+        <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Average Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-food-circle">
+        <div class="orbit-item">☕</div>
+        <div class="orbit-item">🥪</div>
+        <div class="orbit-item">🍵</div>
+        <div class="orbit-item">🥐</div>
+        <span class="food-emoji-main">🫖</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES STRIP ─── -->
+<div id="features-strip">
+  <div class="features-strip-inner">
+    <div class="feature-pill">
+      <div class="feature-pill-icon"><i class="fas fa-bolt"></i></div>
+      <div>
+        <div class="feature-pill-text">Lightning Fast</div>
+        <div class="feature-pill-subtext">Ready in under 10 mins</div>
+      </div>
+    </div>
+    <div class="feature-pill">
+      <div class="feature-pill-icon"><i class="fas fa-leaf"></i></div>
+      <div>
+        <div class="feature-pill-text">100% Fresh</div>
+        <div class="feature-pill-subtext">Made fresh daily</div>
+      </div>
+    </div>
+    <div class="feature-pill">
+      <div class="feature-pill-icon"><i class="fas fa-shield-alt"></i></div>
+      <div>
+        <div class="feature-pill-text">Hygienic Kitchen</div>
+        <div class="feature-pill-subtext">FSSAI certified</div>
+      </div>
+    </div>
+    <div class="feature-pill">
+      <div class="feature-pill-icon"><i class="fas fa-tags"></i></div>
+      <div>
+        <div class="feature-pill-text">Pocket Friendly</div>
+        <div class="feature-pill-subtext">Starts at ₹30</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MENU ─── -->
+<section id="menu">
+  <div class="centered">
+    <div class="section-tag"><i class="fas fa-book-open"></i> Our Menu</div>
+    <h2 class="section-heading">Crafted with <em>Love & Flavour</em></h2>
+    <p class="section-sub">From the first sip of morning chai to the last bite of an evening snack — we've got every craving covered.</p>
+  </div>
+
+  <div class="menu-tabs" id="menuTabs">
+    <button class="tab-btn active" data-cat="all"><i class="fas fa-th"></i> All Items</button>
+    <button class="tab-btn" data-cat="tea"><i class="fas fa-mug-hot"></i> Tea</button>
+    <button class="tab-btn" data-cat="coffee"><i class="fas fa-coffee"></i> Coffee</button>
+    <button class="tab-btn" data-cat="sandwich"><i class="fas fa-bread-slice"></i> Sandwiches</button>
+    <button class="tab-btn" data-cat="patty"><i class="fas fa-drumstick-bite"></i> Patties</button>
+    <button class="tab-btn" data-cat="snack"><i class="fas fa-cookie-bite"></i> Snacks</button>
+  </div>
+
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-main-img">
+        <span>🫖</span>
+        <div class="about-year-badge">
+          <span class="year">2018</span>
+          <span class="est">EST.</span>
+        </div>
+        <div class="about-float-card">
+          <div class="about-float-num">5,000+</div>
+          <div class="about-float-text">Happy Customers Served</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag"><i class="fas fa-heart"></i> Our Story</div>
+      <h2 class="section-heading">A Small Café with a <em>Big Heart</em></h2>
+      <p class="section-sub">BrewBite Café was born in 2018 from a simple dream — to give Jaipur a cosy corner where every cup tells a story and every bite is a memory. What started as a tiny tea stall near Malviya Nagar has grown into the neighbourhood's most-loved café, all while keeping our recipes honest and our hospitality warm.</p>
+      <p class="section-sub" style="margin-top:14px;">We source our tea leaves from Assam and Darjeeling, our bread is baked fresh every morning, and our patties are made from scratch — never frozen, never compromised. Every item on our menu is made with ingredients you can trust and flavours your taste buds will remember.</p>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon"><i class="fas fa-seedling"></i></div>
+          <div>
+            <div class="highlight-title">Farm-Fresh Ingredients</div>
+            <div class="highlight-desc">Sourced directly from trusted local vendors</div>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon"><i class="fas fa-award"></i></div>
+          <div>
+            <div class="highlight-title">FSSAI Certified</div>
+            <div class="highlight-desc">Safe, hygienic, quality assured</div>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="highlight-title">Made to Order</div>
+            <div class="highlight-desc">Every item freshly prepared for you</div>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <div>
+            <div class="highlight-title">Community First</div>
+            <div class="highlight-desc">Proudly serving Jaipur since 2018</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section id="features">
+  <div class="centered reveal">
+    <div class="section-tag" style="background:rgba(232,112,10,0.2);color:var(--orange-light)"><i class="fas fa-star"></i> Why Choose Us</div>
+    <h2 class="section-heading" style="color:var(--cream-white)">We Don't Just Serve Food, <em style="color:var(--orange-light)">We Serve Smiles</em></h2>
+    <p class="section-sub" style="color:rgba(253,246,236,0.65);max-width:520px;margin:0 auto;">Here's what makes BrewBite different from the rest — and why our customers keep coming back.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fas fa-bolt"></i></div>
+      <div class="feature-card-title">Fast Delivery</div>
+      <div class="feature-card-desc">Order ready within 10 minutes. We know your time is precious — so we never keep you waiting.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fas fa-shield-alt"></i></div>
+      <div class="feature-card-title">Hygienic Kitchen</div>
+      <div class="feature-card-desc">FSSAI certified, daily-sanitised kitchen. All our staff follow strict food safety standards every single day.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fas fa-tags"></i></div>
+      <div class="feature-card-title">Affordable Prices</div>
+      <div class="feature-card-desc">Premium flavours starting at just ₹30. We believe great food should be accessible to everyone.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fas fa-leaf"></i></div>
+      <div class="feature-card-title">Fresh Daily</div>
+      <div class="feature-card-desc">No frozen foods, no reheats. Everything on our menu is prepared fresh that very day — guaranteed.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fab fa-whatsapp"></i></div>
+      <div class="feature-card-title">Order on WhatsApp</div>
+      <div class="feature-card-desc">Place your order in seconds with a WhatsApp message. No app download required, no hassle.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-card-icon"><i class="fas fa-heart"></i></div>
+      <div class="feature-card-title">Made with Love</div>
+      <div class="feature-card-desc">Every recipe has been perfected over years of passion. You taste the care in every single bite.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials">
+  <div class="centered reveal">
+    <div class="section-tag"><i class="fas fa-comment-dots"></i> Reviews</div>
+    <h2 class="section-heading">What Our <em>Regulars</em> Say</h2>
+    <p class="section-sub">Don't take our word for it — here's what our daily visitors have to say about the BrewBite experience.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The masala chai here is absolutely divine. I stop by every morning before work and it genuinely makes my entire day better. Best chai in Jaipur, hands down!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-location">Malviya Nagar, Jaipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Came here for a quick bite and ended up becoming a regular. The veg patty is crispy outside, soft inside — exactly how it should be. Great prices too!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Rahul Mehta</div>
+          <div class="testi-location">Vaishali Nagar, Jaipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The cold coffee here is unreal — thick, creamy and not too sweet. I always WhatsApp my order 10 minutes before arriving and it's always ready. Love the service!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Anjali Verma</div>
+          <div class="testi-location">C-Scheme, Jaipur</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">We ordered for our office team and everyone loved it. The grilled paneer sandwich is a must-try. Fast, clean, delicious. BrewBite is our go-to for office snacks now!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">K</div>
+        <div>
+          <div class="testi-name">Karan Agarwal</div>
+          <div class="testi-location">Tonk Road, Jaipur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="centered reveal">
+    <div class="section-tag"><i class="fas fa-map-marker-alt"></i> Find Us</div>
+    <h2 class="section-heading">Visit Us or <em>Order Online</em></h2>
+    <p class="section-sub">We're right around the corner — come in, sit back, and let us serve you something delicious.</p>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <h3>Get In Touch</h3>
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <div class="contact-item-label">Address</div>
+          <div class="contact-item-val">Shop 14, Sunrise Market, Near Malviya Nagar Metro Station,<br>Malviya Nagar, Jaipur, Rajasthan – 302017</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <div class="contact-item-val">+91 98765 43210</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-val">hello@brewbitecafe.in</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+        <div>
+          <div class="contact-item-label">Opening Hours</div>
+          <div class="contact-item-val">Mon–Sat: 7:00 AM – 10:00 PM<br>Sunday: 8:00 AM – 9:00 PM</div>
+        </div>
+      </div>
+      <div class="contact-btns">
+        <a href="tel:+919876543210" class="btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+        <a href="https://wa.me/919876543210?text=Hi%2C+I+want+to+order+from+BrewBite!" class="btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Order</a>
+      </div>
+    </div>
+    <div class="map-container reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.305!2d75.7873!3d26.8503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db6a1d84fecbb%3A0x8a3c1f9e8c3e!2sMalviya%20Nagar%2C%20Jaipur%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1700000000000"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="BrewBite Café Location">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#hero" class="footer-logo"><i class="fas fa-mug-hot" style="font-size:1.5rem;color:var(--orange-light)"></i> Brew<span>Bite</span></a>
+      <p class="footer-desc">Your neighbourhood café for fresh teas, bold coffees, crispy snacks and heartwarming bites. Open 7 days a week in the heart of Jaipur.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/919876543210" class="social-link" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Our Menu</a></li>
+        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+        <li><a href="#features"><i class="fas fa-chevron-right"></i> Why BrewBite</a></li>
+        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Opening Hours</h4>
+      <div class="hours-item"><span class="hours-day">Mon – Fri</span><span class="hours-time">7AM – 10PM</span></div>
+      <div class="hours-item"><span class="hours-day">Saturday</span><span class="hours-time">7AM – 10PM</span></div>
+      <div class="hours-item"><span class="hours-day">Sunday</span><span class="hours-time">8AM – 9PM</span></div>
+      <div class="hours-item"><span class="hours-day">Holidays</span><span class="hours-time">9AM – 8PM</span></div>
+    </div>
+    <div class="footer-col">
+      <h4>Our Address</h4>
+      <p style="font-size:0.85rem;line-height:1.7;">Shop 14, Sunrise Market,<br>Near Malviya Nagar Metro Station,<br>Malviya Nagar, Jaipur, Rajasthan – 302017</p>
+      <p style="margin-top:14px;font-size:0.85rem;"><i class="fas fa-phone-alt" style="color:var(--orange-main);margin-right:8px;"></i>+91 98765 43210</p>
+      <p style="margin-top:8px;font-size:0.85rem;"><i class="fas fa-envelope" style="color:var(--orange-main);margin-right:8px;"></i>hello@brewbitecafe.in</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 BrewBite Café. All rights reserved.</span>
+    <span>Made with ❤️ in Jaipur, Rajasthan | <a href="#">Privacy Policy</a></span>
+  </div>
+</footer>
+
+<!-- ─── FLOATING BUTTONS ─── -->
+<div class="float-btns">
+  <a href="https://wa.me/919876543210?text=Hi%2C+I+want+to+order+from+BrewBite!" class="float-btn float-wa" target="_blank" title="Order on WhatsApp" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="tel:+919876543210" class="float-btn float-call" title="Call Us" aria-label="Call">
+    <i class="fas fa-phone-alt"></i>
+  </a>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast">✅ Added to your WhatsApp order!</div>
+
+<script>
+// ─── MENU DATA ───
+const menuItems = [
+  // TEA
+  { cat: 'tea', emoji: '🍵', name: 'Masala Chai', desc: 'Classic spiced tea brewed with ginger, cardamom & cinnamon', price: 30, badge: 'Bestseller' },
+  { cat: 'tea', emoji: '🫖', name: 'Adrak Chai', desc: 'Strong ginger infused tea, perfect for a rainy day', price: 25, badge: null },
+  { cat: 'tea', emoji: '🍃', name: 'Green Tea', desc: 'Light, antioxidant-rich green tea with honey & lemon', price: 50, badge: 'Healthy' },
+  { cat: 'tea', emoji: '🌿', name: 'Elaichi Tea', desc: 'Delicate cardamom tea with a fragrant, soothing finish', price: 30, badge: null },
+  // COFFEE
+  { cat: 'coffee', emoji: '☕', name: 'Filter Coffee', desc: 'South Indian style decoction coffee with frothy milk', price: 45, badge: 'Classic' },
+  { cat: 'coffee', emoji: '🧊', name: 'Cold Coffee', desc: 'Chilled blended coffee with ice cream & chocolate drizzle', price: 90, badge: 'Favourite' },
+  { cat: 'coffee', emoji: '💛', name: 'Turmeric Latte', desc: 'Warm golden milk with turmeric, ginger & black pepper', price: 80, badge: 'Healthy' },
+  { cat: 'coffee', emoji: '🍫', name: 'Mocha Latte', desc: 'Espresso with rich chocolate and velvety steamed milk', price: 110, badge: null },
+  // SANDWICH
+  { cat: 'sandwich', emoji: '🥪', name: 'Club Sandwich', desc: 'Triple decker with veggies, cheese, and mayo on toasted bread', price: 120, badge: 'Filling' },
+  { cat: 'sandwich', emoji: '🧀', name: 'Grilled Paneer', desc: 'Spiced paneer tikka with bell peppers in a toasted bun', price: 130, badge: 'Bestseller' },
+  { cat: 'sandwich', emoji: '🥚', name: 'Egg & Cheese', desc: 'Fluffy scrambled eggs with melted cheese on multigrain', price: 100, badge: null },
+  { cat: 'sandwich', emoji: '🌿', name: 'Veg Crunch', desc: 'Fresh cucumber, tomato & hung curd on crispy bread', price: 90, badge: 'Light' },
+  // PATTY
+  { cat: 'patty', emoji: '🥙', name: 'Veg Patty', desc: 'Golden crispy veg patty with tangy sauces & fresh veggies', price: 60, badge: 'Crispy' },
+  { cat: 'patty', emoji: '🍞', name: 'Paneer Patty', desc: 'Soft paneer filling coated in breadcrumbs, fried to perfection', price: 80, badge: 'Bestseller' },
+  { cat: 'patty', emoji: '🌽', name: 'Corn & Cheese', desc: 'Sweet corn and cheddar filling in a flaky puff pastry', price: 70, badge: null },
+  { cat: 'patty', emoji: '🥬', name: 'Aloo Tikki Pav', desc: 'Spiced potato tikki in a soft pav with green chutney', price: 50, badge: 'Street Style' },
+  // SNACK
+  { cat: 'snack', emoji: '🍟', name: 'Masala Fries', desc: 'Crispy fries tossed in chaat masala with ketchup', price: 70, badge: null },
+  { cat: 'snack', emoji: '🥐', name: 'Butter Croissant', desc: 'Flaky, buttery croissant baked fresh every morning', price: 60, badge: 'Fresh Daily' },
+  { cat: 'snack', emoji: '🧁', name: 'Muffin (Choco)', desc: 'Moist chocolate chip muffin, baked in-house daily', price: 55, badge: null },
+  { cat: 'snack', emoji: '🥜', name: 'Samosa (2 pcs)', desc: 'Crispy golden samosas stuffed with spiced potatoes & peas', price: 40, badge: 'Classic' },
+];
+
+// ─── RENDER MENU ───
+function renderMenu(filter) {
+  const grid = document.getElementById('menuGrid');
+  const items = filter === 'all' ? menuItems : menuItems.filter(i => i.cat === filter);
+  grid.innerHTML = '';
+  items.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'menu-card';
+    card.style.transitionDelay = (idx * 0.05) + 's';
+    card.innerHTML = `
+      <div class="menu-emoji-bg">
+        <span>${item.emoji}</span>
+        ${item.badge ? `<div class="menu-card-badge">${item.badge}</div>` : ''}
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">${item.name}</div>
+        <div class="menu-card-desc">${item.desc}</div>
+        <div class="menu-card-footer">
+          <div class="menu-price">₹${item.price} <span>/ serving</span></div>
+          <button class="add-btn" onclick="addToOrder('${item.name}', ${item.price})" title="Add to order">+</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+    requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add('visible')));
+  });
+}
+
+// ─── TABS ───
+document.getElementById('menuTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(btn.dataset.cat);
+});
+
+renderMenu('all');
+
+// ─── ADD TO ORDER ───
+function addToOrder(name, price) {
+  const toast = document.getElementById('toast');
+  toast.textContent = `🛒 ${name} (₹${price}) added!`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .feature-card, .testi-card').forEach(el => observer.observe(el));
+
+// ─── NAVBAR SCROLL ───
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ─── HAMBURGER ───
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+</script>
+</body>
+</html>
